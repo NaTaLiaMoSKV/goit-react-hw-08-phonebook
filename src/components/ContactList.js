@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 
 class ContactList extends Component {
-
     render() {
         const { contacts, findContact, onClickButton } = this.props;
 

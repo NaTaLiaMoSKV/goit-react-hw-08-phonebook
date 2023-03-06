@@ -3,17 +3,28 @@ import ContactForm from "./ContactForm";
 import Filter from "./Filter";
 import ContactList from "./ContactList";
 
+const CONTACTS_KEY = 'contacts';
+
 class App extends Component {
   filteredContacts = [];
 
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+    contacts: [],
     filter: '',
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem(CONTACTS_KEY) !== null) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem(CONTACTS_KEY)),
+      })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.prevState) {
+      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts));
+      }
   }
 
   formSumbitHandler = contact => {
@@ -58,7 +69,10 @@ class App extends Component {
         <ContactForm onSumbit={this.formSumbitHandler} />
         <h2>Contacts</h2>
         <Filter filter={filter} onChange={this.findContactsByName} />
-        <ContactList contacts={contacts} findContact={this.findContact} onClickButton={this.deleteContactFromList} />
+        { contacts.length > 0  ? (
+            <ContactList contacts={contacts} findContact={this.findContact} onClickButton={this.deleteContactFromList} />
+          ) : <h2 style={{marginLeft: "20px",fontFamily:"monospace"}}> Your phonebook is empty </h2>
+        }
       </>
     )
   }
