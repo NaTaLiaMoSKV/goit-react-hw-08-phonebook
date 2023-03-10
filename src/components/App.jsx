@@ -1,83 +1,65 @@
-import React, { Component } from "react";
+// import React, { Component, useEffect } from "react";
 import ContactForm from "./ContactForm";
 import Filter from "./Filter";
 import ContactList from "./ContactList";
+import { useState, useEffect } from "react";
 
 const CONTACTS_KEY = 'contacts';
 
-class App extends Component {
-  filteredContacts = [];
 
-  state = {
-    contacts: [],
-    filter: '',
-  }
+export default function App() {
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(window.localStorage.getItem(CONTACTS_KEY)) ?? [];
+  });
+  const [filter, setFilter] = useState('');
+  let filteredContacts = [];
 
-  componentDidMount() {
-    if (localStorage.getItem(CONTACTS_KEY) !== null) {
-      this.setState({
-        contacts: JSON.parse(localStorage.getItem(CONTACTS_KEY)),
-      })
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.prevState) {
-      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts));
-      }
-  }
+  useEffect(() => {
+    window.localStorage.setItem(CONTACTS_KEY, JSON.stringify(contacts));
+  }, [contacts]);
  
-  formSumbitHandler = contact => {
-    if (this.isContactInContactList(contact)) {
+  const formSumbitHandler = contact => {
+    if (isContactInContactList(contact)) {
       alert(`${contact.name} is already in contacts.`);
     } else {
-      this.setState({
-        contacts: [...this.state.contacts, contact],
-      })
+      setContacts([...contacts, contact]);
     }
-    this.resetFilter();
+    setFilter('');
   }
 
-  deleteContactFromList = (contactId) => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }))
+  const deleteContactFromList = contactId => {
+    setContacts(contacts.filter(contact => contact.id !== contactId));
   }
 
-  isContactInContactList = contact => {
-    return (this.state.contacts.find(cont => cont.name.toLocaleLowerCase() === contact.name.toLocaleLowerCase()) !== undefined)
+  const isContactInContactList = contact => {
+    return (contacts.find(cont => cont.name.toLocaleLowerCase() === contact.name.toLocaleLowerCase()) !== undefined)
   }
 
-  resetFilter = () => {
-    this.setState({ filter: '' });
-  }
-
-  findContactsByName = e => {
+  const findContactsByName = e => {
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: [value] });
-    this.filteredContacts = this.state.contacts.map(contact => contact.name.toLocaleLowerCase()).filter(name => name.includes(value));
+    setFilter(value);
+    filteredContacts = contacts.map(contact => contact.name.toLocaleLowerCase()).filter(name => name.includes(value));
   }
 
-  findContact = name => {
-   const val = this.state.filter.toString().toLocaleLowerCase();
+  const findContact = name => {
+    const val = filter.toString().toLocaleLowerCase();
     return name.toLocaleLowerCase().includes(val);
   }
 
-  render() {
-    const { contacts, filter } = this.state;
-    return (
-      <>
-        <h1>Phonebook</h1>
-        <ContactForm onSumbit={this.formSumbitHandler} />
-        <h2>Contacts</h2>
-        <Filter filter={filter} onChange={this.findContactsByName} />
-        { contacts.length > 0  ? (
-            <ContactList contacts={contacts} findContact={this.findContact} onClickButton={this.deleteContactFromList} />
-          ) : <h2 style={{marginLeft: "20px",fontFamily:"monospace"}}> Your phonebook is empty </h2>
-        }
-      </>
-    )
-  }
+  return (
+    <>
+      <h1>Phonebook</h1>
+      <ContactForm onContactFormSubmit={formSumbitHandler} />
+
+      <h2>Contacts</h2>
+      <Filter filter={filter} onChange={findContactsByName} />
+
+      {contacts.length > 0 ? (
+        <ContactList contacts={contacts} findContact={findContact} onClickButton={deleteContactFromList} />
+      ) : <h2 style={{ marginLeft: "20px", fontFamily: "monospace" }}> Your phonebook is empty </h2>
+      }
+    </>
+  )
+
 }
 
-export default App;
