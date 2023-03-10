@@ -31,7 +31,9 @@ class App extends Component {
     if (this.isContactInContactList(contact)) {
       alert(`${contact.name} is already in contacts.`);
     } else {
-      this.state.contacts.push(contact);
+      this.setState({
+        contacts: [...this.state.contacts, contact],
+      })
     }
     this.resetFilter();
   }
