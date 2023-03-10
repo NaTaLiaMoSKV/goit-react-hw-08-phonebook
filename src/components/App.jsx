@@ -12,7 +12,7 @@ export default function App() {
     return JSON.parse(window.localStorage.getItem(CONTACTS_KEY)) ?? [];
   });
   const [filter, setFilter] = useState('');
-  let filteredContacts = [];
+  // let filteredContacts = [];
 
   useEffect(() => {
     window.localStorage.setItem(CONTACTS_KEY, JSON.stringify(contacts));
@@ -36,9 +36,7 @@ export default function App() {
   }
 
   const findContactsByName = e => {
-    const { name, value } = e.currentTarget;
-    setFilter(value);
-    filteredContacts = contacts.map(contact => contact.name.toLocaleLowerCase()).filter(name => name.includes(value));
+    setFilter(e.currentTarget.value);
   }
 
   const findContact = name => {
