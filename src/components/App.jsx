@@ -26,7 +26,7 @@ class App extends Component {
       localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts));
       }
   }
-
+ 
   formSumbitHandler = contact => {
     if (this.isContactInContactList(contact)) {
       alert(`${contact.name} is already in contacts.`);
