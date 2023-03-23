@@ -1,9 +1,15 @@
 import { nanoid } from 'nanoid'
 import { useState } from "react";
+import { add } from "redux/contacts/contactsSlice"
+import { useSelector, useDispatch } from "react-redux";
 
-export default function ContactForm ( {onContactFormSubmit} ) {
+export default function ContactForm () {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
+
+
+    const contacts = useSelector(state => state.contacts);
+    const dispatch = useDispatch();
 
     const onFormSubmit = e => {
         e.preventDefault();
@@ -17,10 +23,14 @@ export default function ContactForm ( {onContactFormSubmit} ) {
             name: contactName,
             number: contactNumber,
         }
+         const isContactInContactList = contact => {
+            return (contacts.find(cont => cont.name.toLocaleLowerCase() === contact.name.toLocaleLowerCase()) !== undefined)
+        }
 
-        onContactFormSubmit(contact);
-
-
+        if (!isContactInContactList(contact) ) {
+            dispatch(add(contact));
+        } else alert(`${contact.name} is already in contacts.`);
+        
         setName('');
         setNumber('');
     }
@@ -50,7 +60,7 @@ export default function ContactForm ( {onContactFormSubmit} ) {
 
             <label className="form__label">
                 Phone
-                <input type="tel" value={number} name="number" pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                <input type="tel"  value={number} name="number" pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                 title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                 onChange={handleInputChange} required/>
             </label>
