@@ -13,3 +13,5 @@ export const filterSlice = createSlice({
 })
 
 export const { update } = filterSlice.actions;
+
+export const getFilter = state => state.filter.query;

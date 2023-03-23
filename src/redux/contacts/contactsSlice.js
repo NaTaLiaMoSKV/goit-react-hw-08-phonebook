@@ -1,22 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 export const contactsSlice = createSlice({
     name: 'contacts',
-    initialState: [
-        { id: '12432', name: 'natalia', number: '0685703758' },
-        { id: '5342', name: 'ivan', number: '045803495' }
-    ],
+    initialState: {
+        contactsList: []
+    },
     reducers: {
         add(state, action) {
             const { id, name, number } = action.payload; 
 
-            state.push({ id, name, number })
+            state.contactsList.push({ id, name, number })
         },
         remove(state, action) {
-            return state.filter(contact => contact.id !== action.payload);
+            // удаляется не нужный элемент массива, а весь массив contactsList
+            return state.contactsList.filter(contact => contact.id !== action.payload)
         },
     }
 })
 
+const persistConfig = {
+    key: 'contacts',
+    storage,
+}
+
+export const contactsReducer = persistReducer(persistConfig, contactsSlice.reducer);
 
 export const { add, remove } = contactsSlice.actions;
+
+export const getContacts = state => state.contacts.contactsList;

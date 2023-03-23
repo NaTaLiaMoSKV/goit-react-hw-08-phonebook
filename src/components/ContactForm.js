@@ -1,14 +1,13 @@
 import { nanoid } from 'nanoid'
 import { useState } from "react";
-import { add } from "redux/contacts/contactsSlice"
+import { add, getContacts } from "redux/contacts/contactsSlice"
 import { useSelector, useDispatch } from "react-redux";
 
 export default function ContactForm () {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
-
-    const contacts = useSelector(state => state.contacts);
+    const contacts = useSelector(getContacts);
     const dispatch = useDispatch();
 
     const onFormSubmit = e => {
