@@ -6,7 +6,6 @@ import { getContacts } from "redux/contacts/contactsSlice";
 
 export default function App() {
   const contacts = useSelector(getContacts);
-  const filter = useSelector(state => state.filter);
 
   return (
     <>
@@ -16,12 +15,7 @@ export default function App() {
       <h2>Contacts</h2>
       <Filter />
       <ContactList />
-    {/* {console.log(contacts.length > 0)} */}
-      {/* {
-        contacts.length > 0
-          ? (<ContactList />)
-          : <h2 style={{ marginLeft: "20px", fontFamily: "monospace" }}> Your phonebook is empty </h2>
-      } */}
+      {contacts.length === 0 && <h2 style={{ marginLeft: "20px", fontFamily: "monospace" }}> Your phonebook is empty </h2>}
     </>
   )
 

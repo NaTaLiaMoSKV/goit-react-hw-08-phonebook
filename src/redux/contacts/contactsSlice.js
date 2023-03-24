@@ -9,13 +9,10 @@ export const contactsSlice = createSlice({
     },
     reducers: {
         add(state, action) {
-            const { id, name, number } = action.payload; 
-
-            state.contactsList.push({ id, name, number })
+            state.contactsList.push(action.payload)
         },
         remove(state, action) {
-            // удаляется не нужный элемент массива, а весь массив contactsList
-            return state.contactsList.filter(contact => contact.id !== action.payload)
+            state.contactsList = state.contactsList.filter(contact => contact.id !== action.payload)
         },
     }
 })
