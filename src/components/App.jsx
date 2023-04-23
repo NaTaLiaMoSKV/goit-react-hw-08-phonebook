@@ -1,34 +1,37 @@
-import ContactForm from "./ContactForm";
-import Filter from "./Filter";
-import ContactList from "./ContactList";
+import { Route, Routes } from "react-router-dom";
+import { lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectContactsList, selectError, selectIsLoading } from "redux/selectors";
 import { useEffect } from "react";
-import { fetchContacts } from "redux/operations";
+import { refreshUser } from "redux/auth/operations";
+import { selectIsRefreshing } from "redux/auth/selections";
+
+import Layout from "./Layout";
+const LoginPage = lazy(() => import("./LoginPage/LoginPage"));
+const RegisterPage = lazy(() => import("./RegisterPage/RegisterPage"));
+const Phonebook = lazy(() => import("./Phonebook/Phonebook"));
 
 export default function App() {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContactsList);
-  const error = useSelector(selectError);
-  const isLoading = useSelector(selectIsLoading);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) :
+    (
     <>
-      <h1>Phonebook</h1>
-      <ContactForm />
-
-      <h2>Contacts</h2>
-      <Filter />
-      { !isLoading && !error && contacts.length === 0 && <h2 style={{ marginLeft: "20px", fontFamily: "monospace" }}> Your phonebook is empty </h2> }
-      { isLoading && !error && <h2 style={{ marginLeft: "20px", fontFamily: "monospace" }}>Loading phonebook...</h2> }
-      <ContactList />
-      
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="login" element={ <LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="contacts" element={<Phonebook />} />
+        </Route>
+      </Routes>
     </>
+      
   )
 
 }

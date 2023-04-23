@@ -1,8 +1,7 @@
-// import { nanoid } from 'nanoid'
 import { useState } from "react";
-import { addContact } from 'redux/operations';
+import { addContact } from "redux/contacts/operations";
 import { useSelector, useDispatch } from "react-redux";
-import { selectContactsList } from 'redux/selectors';
+import { selectContactsList } from "redux/contacts/selectors";
 
 export default function ContactForm() {
     const [name, setName] = useState('');
@@ -14,16 +13,13 @@ export default function ContactForm() {
     const onFormSubmit = e => {
         e.preventDefault();
         const form = e.currentTarget;
-        const contactName = form.elements.name.value;
-        const contactNumber = form.elements.number.value;
-        // const contactId = nanoid(10);
 
         const contact = {
-            // id: contactId,
-            name: contactName,
-            number: contactNumber,
+            name: form.elements.name.value,
+            number: form.elements.number.value,
         }
-         const isContactInContactList = contact => {
+        
+        const isContactInContactList = contact => {
             return (contacts.find(cont => cont.name.toLocaleLowerCase() === contact.name.toLocaleLowerCase()) !== undefined)
         }
 
