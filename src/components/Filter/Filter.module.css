@@ -1,0 +1,13 @@
+.filter {
+    border-bottom: 1px solid #2a363b;
+    padding: 20px;
+}
+
+.filter__text {
+    font-size: 16px;
+}
+
+.filter__input {
+    width: 280px;
+    margin-left: 10px;
+}

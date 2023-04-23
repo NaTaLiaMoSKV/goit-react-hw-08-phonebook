@@ -1,0 +1,16 @@
+nav {
+    margin: 10px 20px;
+    font-size: 18px;
+}
+
+.link {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px;
+    font-weight: 700;
+    color: #2a363b;
+}
+
+.link.active {
+    color: #F0694D;
+}

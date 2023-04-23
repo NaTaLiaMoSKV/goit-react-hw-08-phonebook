@@ -1,7 +1,6 @@
+import { lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { refreshUser } from "redux/auth/operations";
 import { selectIsRefreshing } from "redux/auth/selections";
 
