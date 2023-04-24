@@ -21,6 +21,11 @@ header {
   font-family: 'Noto Sans', sans-serif;
 }
 
+nav {
+  margin: 10px 20px;
+  font-size: 18px;
+}
+
 h1, h2, h3 {
   font-family: 'Noto Sans', sans-serif;
   margin-left: 10px;
