@@ -22,7 +22,7 @@ export default function App() {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <b>Refreshing user...</b>
+    <h3 className="notification">Refreshing user...</h3>
   ) :
     (
     <>

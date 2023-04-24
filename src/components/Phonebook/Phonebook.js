@@ -25,10 +25,9 @@ export default function Phonebook() {
         <div className="phonebook__container">
             <ContactForm />
             <div className="contacts__container">
-                {/* <h2>Contacts</h2> */}
                 <Filter />
-                { !isLoading && !error && contacts.length === 0 && <h2 style={{ marginLeft: "20px", fontFamily: "monospace" }}> Your phonebook is empty </h2> }
-                { isLoading && !error && <h2 style={{ marginLeft: "20px", fontFamily: "monospace" }}>Loading phonebook...</h2> }
+                { !isLoading && !error && contacts.length === 0 && <h3 className="notification"> Your phonebook is empty </h3> }
+                { isLoading && !error && <h3 className="notification">Loading phonebook...</h3> }
                 { isLoggedIn && <ContactList /> }
             </div>
         </div>

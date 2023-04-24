@@ -36,6 +36,10 @@ h1, h2, h3 {
   margin-top: 30px;
 }
 
+.notification {
+    margin-left: 20px;
+}
+
 form {
   width: 300px;
   padding: 10px;
