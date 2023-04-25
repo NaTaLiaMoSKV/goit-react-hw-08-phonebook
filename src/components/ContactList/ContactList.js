@@ -6,6 +6,7 @@ import css from './ContactsList.module.css'
 
 export default function ContactList() {
     const dispatch = useDispatch();
+    
     const filter = useSelector(selectFilter);
     const contactsList = useSelector(selectContactsList);
 
