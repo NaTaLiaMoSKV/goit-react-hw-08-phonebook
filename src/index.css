@@ -31,37 +31,45 @@ h1, h2, h3 {
   margin-left: 10px;
 }
 
-.phonebook__container {
-  display: flex;
-  margin-top: 30px;
-}
-
 .notification {
     margin-left: 20px;
 }
 
+.register_title,
+.login_title {
+  text-align: center;
+  font-size: 20px;
+}
+
 form {
-  width: 300px;
   padding: 10px;
   display: flex;
+  align-items: center;
   flex-direction: column;
 }
 
-.form__label {
-  margin-right: 200px;
+.form__input {
+  width: 320px;
+  border: none;
+  border-bottom: 1px solid #2a363b;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 20px;
 }
 
-.form__input {
-  width: 220px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+.form_input::placeholder {
+ font-family: 'Noto Sans', sans-serif; 
 }
 
 .form__button {
-  width: 100px;
-  height: 25px;
-  background-color: #fff;
-  border: 1px solid black;
+  width: 150px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #2a363b;
+  font-family: 'Noto Sans', sans-serif;
+  border: 1px solid #2a363b;
+  color: #fff;
+  letter-spacing: 1px;
   border-radius: 5px;
   margin-top: 10px;
   transition: background-color 250ms cubic-bezier(0.075, 0.82, 0.165, 1),
@@ -70,8 +78,8 @@ form {
 
 .form__button:hover,
 .form__button:focus {
-  background-color: #EEEEEE;
-  box-shadow: 1px 1px 5px #EEEEEE;
+  background-color: #373a3b;
+  box-shadow: 1px 1px 5px #373a3b;
 }
 
 li {
@@ -81,4 +89,10 @@ li {
 .contacts__container {
   margin-left: 100px;
   width: 700px;
+}
+
+.logout__name {
+  width: 150px;
+  text-align: right;
+  margin-right: 10px;
 }

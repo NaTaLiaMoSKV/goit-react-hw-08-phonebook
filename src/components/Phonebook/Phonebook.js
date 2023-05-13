@@ -22,14 +22,12 @@ export default function Phonebook() {
     }, [dispatch]);
 
     return (
-        <div className="phonebook__container">
+        <div >
             <ContactForm />
-            <div className="contacts__container">
-                <Filter />
-                { !isLoading && !error && contacts.length === 0 && <h3 className="notification"> Your phonebook is empty </h3> }
-                { isLoading && !error && <h3 className="notification">Loading phonebook...</h3> }
-                { isLoggedIn && <ContactList /> }
-            </div>
+            <Filter />
+            { !isLoading && !error && contacts.length === 0 && <h3 className="notification" style={{textAlign: "center"}}> Your phonebook is empty </h3> }
+            { isLoading && !error && <h3 className="notification" style={{textAlign: "center"}}>Loading phonebook...</h3> }
+            { isLoggedIn && <ContactList/> }
         </div>
     )
 }

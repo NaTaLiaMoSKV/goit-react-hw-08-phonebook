@@ -1,6 +1,11 @@
 .filter {
-    border-bottom: 1px solid #2a363b;
-    padding: 20px;
+    width: 100vw;
+    border-top: 1px solid #2a363b;
+    display: flex;
+    align-items: baseline;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
 }
 
 .filter__text {
@@ -8,6 +13,6 @@
 }
 
 .filter__input {
-    width: 280px;
+    width: 320px;
     margin-left: 10px;
 }

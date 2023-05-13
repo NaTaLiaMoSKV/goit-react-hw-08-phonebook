@@ -1,0 +1,9 @@
+.links {
+    width: 100vw;
+    display: flex;
+}
+
+.authorization {
+    margin-left: auto;
+    margin-right: 30px;
+}

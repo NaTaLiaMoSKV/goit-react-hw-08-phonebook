@@ -18,14 +18,10 @@ export default function LoginPage() {
 
     return (
         <div>
-            <h2>Log In</h2>
+            <h2 className="login_title">Do you have an account? Sign In!</h2>
             <form onSubmit={handleSubmit}>
-                <label className="form__label">Email</label>
-                <input className="form__input" type="mail" autoComplete="off" name="email" />
-
-                <label className="form__label">Password</label>
-                <input className="form__input" type="password" autoComplete="off" name="password" />
-
+                <input className="form__input" type="mail" autoComplete="off" name="email" autoFocus placeholder="Email"/>
+                <input className="form__input" type="password" autoComplete="off" name="password" placeholder="Password"/>
                 <button className="form__button" type="submit">Log In</button>
             </form>
         </div>

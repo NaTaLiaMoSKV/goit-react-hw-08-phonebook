@@ -21,7 +21,7 @@ export default function ContactList() {
                 .filter(contact => findContact(contact.name))
                 .map(contact => ( 
                     <li key={contact.id} className={css.contacts__item}>
-                        <p>{contact.name}: <span style={{ marginLeft: 10 }}>{contact.number}</span></p>
+                        <p>{contact.name}: <span className={css.contacts__phone} style={{ marginLeft: 10 }}>{contact.number}</span></p>
                         <button className={css.contacts__button} type="button" onClick={() => dispatch(deleteContact(contact.id))}> Delete </button>
                     </li>
                 ))
