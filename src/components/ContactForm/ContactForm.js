@@ -1,22 +1,29 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addContact } from "redux/contacts/operations";
 import { selectContactsList } from "redux/contacts/selectors";
+import { Formik } from "formik";
+import * as Yup from 'yup';
+import { AuthButton, AuthForm, AuthFormField, ErrorSection, AuthFormWrapper, AuthTitle } from "pages/RegisterPage/RegisterPageStyles";
+
+const validationSchema = Yup.object().shape({
+    name: Yup.string().min(2, 'Name must be at least 2 characters').max(32, 'Name must be at most 32 characters').required('Name is required'),
+    number: Yup.string().email('Invalid number').required('Number is required').matches(/^\+[0-9\s-]{6,10}$/, 'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'),
+   
+})
+
+const initialValues = {
+    name: '',
+    number: '',
+}
 
 export default function ContactForm() {
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
-
     const contacts = useSelector(selectContactsList);
     const dispatch = useDispatch();
 
-    const onFormSubmit = e => {
-        e.preventDefault();
-        const form = e.currentTarget;
-
+    const onFormSubmit = (values,  { resetForm }) => {
         const contact = {
-            name: form.elements.name.value,
-            number: form.elements.number.value,
+            name: values.name,
+            number: values.number,
         }
         
         const isContactInContactList = contact => {
@@ -26,39 +33,29 @@ export default function ContactForm() {
         if (!isContactInContactList(contact) ) {
             dispatch(addContact(contact));
         } else alert(`${contact.name} is already in contacts.`);
-        
-        setName('');
-        setNumber('');
-    }
 
-    const handleInputChange = e => {
-        const { name, value } = e.currentTarget;
-        switch (name) {
-            case 'name':
-                setName(value);
-                break;
-            case 'number':
-                setNumber(value);
-                break;
-            default:
-                return;
-        }
+        resetForm();
     }
 
     return (
-        <form onSubmit={onFormSubmit} >
-            <h3>Add new contact</h3>
+        <>
+            <AuthTitle>Add new contact</AuthTitle>
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onFormSubmit}>
+                <AuthForm>
+                    <AuthFormWrapper>
+                        <ErrorSection name="name" component="div" />
+                        <AuthFormField type="text" id="name" name="name" placeholder='Name' />
+                    </AuthFormWrapper>
 
-            <input className="form__input" type="text" value={name} name="name" pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                onChange={handleInputChange} required placeholder="Name"
-            />
-            <input className="form__input" type="tel"  value={number} name="number" pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                onChange={handleInputChange} required placeholder="Phone"
-            />
-            
-            <button type="submit" className="form__button">Add contact</button>
-        </form>
+                    <AuthFormWrapper>
+                        <ErrorSection name="number" component="div" />
+                        <AuthFormField type="tel" id="number" name="number" placeholder='Phone number' />
+                    </AuthFormWrapper>
+
+                    <AuthButton type="submit">Add contact</AuthButton>
+                </AuthForm>
+            </Formik>
+        </>
+        
     )
 }
