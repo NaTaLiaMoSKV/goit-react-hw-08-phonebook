@@ -80,20 +80,21 @@ export const WelcomeDescription = styled.p`
     margin-top: 24px;
     text-align: center;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 18px;
+    line-height: 22px;
     letter-spacing: 0.02em;
     color: #2a363b;
 `;
 export const WelcomeList = styled.ul`
     text-align: left;
+    margin: 10px;
 `;
 export const WelcomeItem = styled.li`
     list-style-type: square;
     margin-top: 10px;
     text-align: left;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 18px;
     letter-spacing: 0.02em;
     color: #2a363b;

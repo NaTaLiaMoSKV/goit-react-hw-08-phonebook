@@ -13,13 +13,13 @@ const WelcomePage = () => {
                 </WelcomeLogo>
 
                 <WelcomeDescription>
-                    Create bla bla bla bla bla bla bla bla bla bla bla bla phonebook with your contacts!
+                    Create your telephone directory, and organize and systematize your phone contacts.
                 </WelcomeDescription>
                 <WelcomeList>
-                    <WelcomeItem>just sign in app;</WelcomeItem>
-                    <WelcomeItem>add your friends and family members;</WelcomeItem>
-                    <WelcomeItem>quickly find the contact you need;</WelcomeItem>
-                    <WelcomeItem>manage your phonebook as you want!</WelcomeItem>
+                    <WelcomeItem>register or log in to our application;</WelcomeItem>
+                    <WelcomeItem>add your friends and relatives to your contacts;</WelcomeItem>
+                    <WelcomeItem>quickly find the contacts you need;</WelcomeItem>
+                    <WelcomeItem>manage your phonebook the way you want!</WelcomeItem>
                 </WelcomeList>
 
                 <WelcomeRegisterButton to="/register">Registration</WelcomeRegisterButton>

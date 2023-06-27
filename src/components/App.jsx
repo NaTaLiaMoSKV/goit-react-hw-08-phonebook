@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-// import { PrivateRoute } from "./PrivateRoute";
+import { PrivateRoute } from "./PrivateRoute";
 import { RestrictedRoute } from "./RestrictedRoute";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -26,12 +26,10 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<WelcomePage />} />
-        <Route index path="/contacts" element={<Phonebook />}
-        />
-        {/* <Route index path="/contacts" element={
+        <Route index path="/contacts" element={
               <PrivateRoute redirectTo="/login" component={<Phonebook />} />
             }
-        /> */}
+        />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/register" element={
                 <RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />
